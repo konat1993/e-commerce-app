@@ -33,7 +33,7 @@ export default {
         },
         {
             name: 'details',
-            title: 'details',
+            title: 'Details',
             type: 'string'
         }
     ]
