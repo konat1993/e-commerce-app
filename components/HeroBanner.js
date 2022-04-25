@@ -4,6 +4,7 @@ import { urlFor } from '../lib/client'
 import Image from 'next/image'
 
 const HeroBanner = ({ heroBanner }) => {
+  console.log('ref ', heroBanner)
   return (
     <div className='hero-banner-container'>
       <div>
@@ -12,9 +13,10 @@ const HeroBanner = ({ heroBanner }) => {
         </p>
         <h3>{heroBanner.midText}</h3>
         <h1>{heroBanner.largeText1}</h1>
-        <img src={urlFor(heroBanner.image).url()} alt="headphones" className='hero-banner-image' />
+        {/* <img src={urlFor(heroBanner.productRef.image[0])} alt="headphones" className='hero-banner-image' /> */}
+        <img src={urlFor(heroBanner.image)} alt="headphones" className='hero-banner-image' />
         <div>
-          <Link href={`/products/${heroBanner.product}`} passHref>
+          <Link href={`/products/${heroBanner.productRef.slug.current}`} passHref>
             <button type='button'>{heroBanner.buttonText}</button>
           </Link>
           <div className="desc">

@@ -3,6 +3,7 @@ export default {
     title: 'Banner',
     type: 'document',
     fields: [
+
         {
             name: 'image',
             title: 'Image',
@@ -14,11 +15,6 @@ export default {
         {
             name: 'buttonText',
             title: 'ButtonText',
-            type: 'string',
-        },
-        {
-            name: 'product',
-            title: 'Product',
             type: 'string',
         },
         {
@@ -56,5 +52,11 @@ export default {
             title: 'SaleTime',
             type: 'string',
         },
+        {
+            name: 'productRef',
+            title: 'Banner Product',
+            type: 'reference',
+            to: { type: 'product' }
+        }
     ],
 }
