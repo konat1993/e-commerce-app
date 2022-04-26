@@ -7,11 +7,9 @@ export const Context = React.createContext()
 export const StateContext = ({ children }) => {
     const [showCart, setShowCart] = React.useState(false)
     const [cartItems, setCartItems] = React.useState([])
-    const [totalPrice, setTotalPrice] = React.useState()
-    const [totalQuantities, setTotalQuantities] = React.useState()
+    const [totalPrice, setTotalPrice] = React.useState(0)
+    const [totalQuantities, setTotalQuantities] = React.useState(0)
     const [qty, setQty] = React.useState(1)
-
-
 
     const incQty = () => {
         setQty((prevQty) => prevQty + 1)
@@ -41,21 +39,41 @@ export const StateContext = ({ children }) => {
         toast.success(`${qty} ${product.name} added to the cart.`)
     }
 
-    React.useEffect(() => {
+    const toggleCartItemQuantity = (id, value) => {
+        let newCartItems = cartItems.map((item) => {
+            if (item._id === id) {
+                if (value === 'inc') {
+                    setTotalPrice(prevTotalPrice => prevTotalPrice + item.price)
+                    setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
+                    return {
+                        ...item,
+                        quantity: item.quantity + 1
+                    }
+                } else if (value === 'dec' && item.quantity > 1) {
+                    setTotalPrice(prevTotalPrice => prevTotalPrice - item.price)
+                    setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
+                    return {
+                        ...item,
+                        quantity: item.quantity - 1
+                    }
+                } else return item
+            } else return item
 
-        return () => {
-        }
-    }, [])
+        })
+        setCartItems(newCartItems)
+    }
 
     const state = {
         cartItems,
         showCart,
+        setShowCart,
         totalPrice,
         totalQuantities,
         qty,
         incQty,
         decQty,
-        onAdd
+        onAdd,
+        toggleCartItemQuantity
     }
 
     return (
