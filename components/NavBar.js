@@ -6,7 +6,7 @@ const NavBar = () => {
     <div className='navbar-container'>
       <p className='logo'>
         <Link href='/'>
-          SoundCore Headphones
+          Ear-SoundCore Headphones
         </Link>
       </p>
       <button className="cart-icon" onClick={''}>
