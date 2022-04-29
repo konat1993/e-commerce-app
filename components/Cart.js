@@ -9,7 +9,7 @@ import { urlFor } from '../lib/client'
 
 const Cart = () => {
   const cartRef = React.useRef()
-  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity } = useStateContext()
+  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = useStateContext()
   return (
     <div className="cart-wrapper" ref={cartRef}>
       <div className="cart-container">
@@ -56,7 +56,7 @@ const Cart = () => {
                         <span className="plus" onClick={() => toggleCartItemQuantity(item._id, 'inc')}><AiOutlinePlus /></span>
                       </p>
                     </div>
-                    <button type="button" className="remove-item">
+                    <button type="button" className="remove-item" onClick={() => onRemove(item)}>
                       <TiDeleteOutline />
                     </button>
                   </div>
@@ -69,7 +69,7 @@ const Cart = () => {
           <div className='cart-bottom'>
             <div className="total">
               <h3>Subtotal:</h3>
-              <h3>${totalPrice}</h3>
+              <h3>${totalPrice.toFixed(2)}</h3>
             </div>
             <div className="btn-container">
               <button type="button" className="btn">

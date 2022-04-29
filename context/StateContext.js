@@ -11,6 +11,8 @@ export const StateContext = ({ children }) => {
     const [totalQuantities, setTotalQuantities] = React.useState(0)
     const [qty, setQty] = React.useState(1)
 
+    let newCartItems
+
     const incQty = () => {
         setQty((prevQty) => prevQty + 1)
     }
@@ -39,8 +41,15 @@ export const StateContext = ({ children }) => {
         toast.success(`${qty} ${product.name} added to the cart.`)
     }
 
+    const onRemove = (product) => {
+        const findCurrentItemsInCart = cartItems.filter(item => item._id !== product._id)
+        setTotalPrice(prevTotalPrice => prevTotalPrice - product.price * product.quantity)
+        setTotalQuantities(prevTotalQuantities => prevTotalQuantities - product.quantity)
+        setCartItems(findCurrentItemsInCart)
+    }
+
     const toggleCartItemQuantity = (id, value) => {
-        let newCartItems = cartItems.map((item) => {
+        newCartItems = cartItems.map((item) => {
             if (item._id === id) {
                 if (value === 'inc') {
                     setTotalPrice(prevTotalPrice => prevTotalPrice + item.price)
@@ -73,7 +82,8 @@ export const StateContext = ({ children }) => {
         incQty,
         decQty,
         onAdd,
-        toggleCartItemQuantity
+        toggleCartItemQuantity,
+        onRemove
     }
 
     return (
