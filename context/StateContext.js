@@ -22,16 +22,25 @@ export const StateContext = ({ children }) => {
     }
 
     const onAdd = (product, quantity) => {
-        const checkProductInCart = cartItems.find(item => item._id === product.Id)
+        console.log('product ', product)
+        const checkProductInCart = cartItems.find(item => item._id === product._id)
+        console.log('check if product exist in cart already ', checkProductInCart)
         setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity)
         setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity)
         if (checkProductInCart) {
             const updatedCartItems = cartItems.map(cartProduct => {
-                if (cartProduct._id === product._id) return {
-                    ...cartProduct,
-                    quantity: cartProduct.quantity + quantity
+                if (cartProduct._id === product._id) {
+                    return {
+                        ...cartProduct,
+                        quantity: cartProduct.quantity + quantity
+                    }
+                } else {
+                    return {
+                        ...cartProduct
+                    }
                 }
             })
+            console.log('updatedCartItems ', updatedCartItems)
             setCartItems(updatedCartItems)
         } else {
             product.quantity = quantity
@@ -42,10 +51,10 @@ export const StateContext = ({ children }) => {
     }
 
     const onRemove = (product) => {
-        const findCurrentItemsInCart = cartItems.filter(item => item._id !== product._id)
+        const filterCartItems = cartItems.filter(item => item._id !== product._id)
         setTotalPrice(prevTotalPrice => prevTotalPrice - product.price * product.quantity)
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities - product.quantity)
-        setCartItems(findCurrentItemsInCart)
+        setCartItems(filterCartItems)
     }
 
     const toggleCartItemQuantity = (id, value) => {

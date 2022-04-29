@@ -21,7 +21,6 @@ const ProductDetails = ({ product, allProducts }) => {
           </div>
           <div className="small-images-container">
             {image?.map((item, i) => {
-              console.log('itttttt ', item)
               return (<img
                 key={i}
                 src={urlFor(item)}
