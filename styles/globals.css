@@ -647,6 +647,7 @@ span.text-red {
   }
   .banner-desc {
     flex-wrap: wrap;
+    flex-direction: column;
     gap: 20px;
   }
   .hero-banner-container {

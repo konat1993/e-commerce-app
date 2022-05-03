@@ -22,9 +22,7 @@ export const StateContext = ({ children }) => {
     }
 
     const onAdd = (product, quantity) => {
-        console.log('product ', product)
         const checkProductInCart = cartItems.find(item => item._id === product._id)
-        console.log('check if product exist in cart already ', checkProductInCart)
         setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity)
         setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity)
         if (checkProductInCart) {
@@ -40,7 +38,6 @@ export const StateContext = ({ children }) => {
                     }
                 }
             })
-            console.log('updatedCartItems ', updatedCartItems)
             setCartItems(updatedCartItems)
         } else {
             product.quantity = quantity
@@ -83,10 +80,13 @@ export const StateContext = ({ children }) => {
 
     const state = {
         cartItems,
+        setCartItems,
         showCart,
         setShowCart,
         totalPrice,
         totalQuantities,
+        setTotalPrice,
+        setTotalQuantities,
         qty,
         incQty,
         decQty,
